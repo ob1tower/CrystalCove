@@ -1,0 +1,214 @@
+﻿<Window x:Class="Hotelv2.Views.UpdateBookingView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:controls='clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit'
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotelv2.Views"
+        mc:Ignorable="d"
+        Title="UpdateBookingView" 
+        Height="500" 
+        Width="400"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowState="Normal"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Icon="C:\Users\ob1to\source\repos\Hotelv2\Hotelv2\Image\Logo.png">
+    <Grid>
+        <Border CornerRadius="10" 
+                Background="White">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="72"/>
+                    <RowDefinition Height="72"/>
+                    <RowDefinition Height="72"/>
+                    <RowDefinition Height="72"/>
+                    <RowDefinition Height="84"/>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Button x:Name="btnClose" 
+                            Style="{StaticResource IconButtonsStyle}" 
+                            Content="{DynamicResource close}" 
+                            Tag="IsCloseButton"
+                            Click="btnClose_Click"
+                            HorizontalAlignment="Right"
+                            Margin="0 10 20 0"
+                            ToolTip="Закрыть"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <TextBlock Text="Редактирование бронирования"
+                               HorizontalAlignment="Left"
+                               Foreground="#021A2D"
+                               FontSize="15"
+                               Margin="20 0 0 0"
+                               FontFamily="Montserrat"
+                               FontWeight="SemiBold"/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <StackPanel Margin="20 15 20 15"
+                                Orientation="Horizontal">
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0 0 6 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       Foreground="#459DA6"
+                                       FontFamily="Montserrat"
+                                       FontWeight="Medium"
+                                       FontSize="10">
+                            Дата брони
+                            <TextBlock Text=" *"
+                                       Foreground="#BB0000"/>
+                            </TextBlock>
+
+
+                            <DatePicker Margin="0 5 0 0"
+                                        Width="116"
+                                        Height="25"
+                                        Style="{DynamicResource DatePickerStyle}"
+                                        Name="BookingDate"
+                                        Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                                        Path=BookingDataGrid.SelectedItem.BookingDate,Mode=OneTime, StringFormat='dd.MM.yyyy'}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="3">
+
+                    <StackPanel Margin="20 15 20 15"
+                                Orientation="Horizontal">
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0 0 6 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       Foreground="#459DA6"
+                                       FontFamily="Montserrat"
+                                       FontWeight="Medium"
+                                       FontSize="10">
+                            Дата заезда
+                            <TextBlock Text=" *"
+                                        Foreground="#BB0000"/>
+                            </TextBlock>
+
+                            <DatePicker Margin="0 5 0 0"
+                                        Width="116"
+                                        Height="25"
+                                        Name="CheckIn"
+                                        Style="{DynamicResource DatePickerStyle}"
+                                        Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                                        Path=BookingDataGrid.SelectedItem.CheckIn,Mode=OneTime, StringFormat='dd.MM.yyyy'}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0 0 6 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       Foreground="#459DA6"
+                                       FontFamily="Montserrat"
+                                       FontWeight="Medium"
+                                       FontSize="10">
+                            Дата выезда
+                            <TextBlock Text=" *"
+                                        Foreground="#BB0000"/>
+                            </TextBlock>
+
+                            <DatePicker Margin="0 5 0 0"
+                                        Width="116"
+                                        Height="25"
+                                        Name="CheckOut"
+                                        Style="{DynamicResource DatePickerStyle}"
+                                        Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                                        Path=BookingDataGrid.SelectedItem.CheckOut,Mode=OneTime, StringFormat='dd.MM.yyyy'}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <StackPanel Margin="20 15 20 15"
+                                Orientation="Horizontal">
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0 0 6 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       Foreground="#459DA6"
+                                       FontFamily="Montserrat"
+                                       FontWeight="Medium"
+                                       FontSize="10">
+                            Клиент
+                            <TextBlock Text=" *"
+                                        Foreground="#BB0000"/>
+                            </TextBlock>
+
+                            <controls:AutoCompleteBox x:Name="ClientId" 
+                                                      Margin="0 5 0 0"
+                                                      Width="360"
+                                                      Height="25"
+                                                      Style="{DynamicResource AutoCompleteBoxStyle}"
+                                                      PreviewTextInput="ValidationLet_PreviewTextInput"
+                                                      Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                                                      Path=BookingDataGrid.SelectedItem.ClientFullName,Mode=OneTime}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="5">
+                    <StackPanel Margin="20 15 20 15"
+                                Orientation="Horizontal">
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0 0 6 0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       Foreground="#459DA6"
+                                       FontFamily="Montserrat"
+                                       FontWeight="Medium"
+                                       FontSize="10">
+                            Номер комнаты
+                            <TextBlock Text=" *"
+                                        Foreground="#BB0000"/>
+                            </TextBlock>
+
+                            <controls:AutoCompleteBox x:Name="RoomId" 
+                                                      Margin="0 5 0 0"
+                                                      Width="360"
+                                                      Height="25"
+                                                      Style="{DynamicResource AutoCompleteBoxStyle}"
+                                                      PreviewTextInput="ValidationNumb_PreviewTextInput"
+                                                      Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},
+                                                      Path=BookingDataGrid.SelectedItem.Room.NumberRoom,Mode=OneTime}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="7">
+                    <StackPanel Margin="21 0 20 30"
+                                Orientation="Horizontal">
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0 0 6 0">
+                            <Button Content="Отмена"
+                                    Style="{DynamicResource CancelButton}"
+                                    Click="CloseBooking_Click"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0 0 6 0">
+                            <Button Content="Сохранить"
+                                    Style="{DynamicResource ForwardButton}"
+                                    Click="SaveBooking_Click"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
