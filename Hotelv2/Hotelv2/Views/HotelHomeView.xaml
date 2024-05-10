@@ -1,0 +1,203 @@
+﻿<Window x:Class="Hotelv2.HotelHomeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotelv2"
+        mc:Ignorable="d"
+        Title="HotelHomeView"
+        Loaded="HotelHomeView_Loaded"
+        Height="720" 
+        Width="1080"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowState="Normal"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Icon="C:\Users\ob1to\source\repos\Hotelv2\Hotelv2\Image\Logo.png">
+    <Grid>
+        <Border CornerRadius="14" x:Name="overlay" Background="#AA000000" Visibility="Collapsed" Panel.ZIndex="1" IsHitTestVisible="False"/>
+        <Border CornerRadius="15" 
+                Background="White">
+            <Grid Panel.ZIndex="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Столбец таблицы слева -->
+                <Border CornerRadius="15 0 0 15" 
+                        Background="#E1F3F5">
+                    <Grid x:Name="gridMenu" Width="100">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="76"/>
+                            <RowDefinition Height="48"/>
+                            <RowDefinition Height="138"/>
+                            <RowDefinition Height="268"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Логотип -->
+                        <StackPanel Grid.Row="1" 
+                                    Orientation="Horizontal" 
+                                    VerticalAlignment="Top"
+                                    Margin="30 18 30 18">
+                            <Image Source="C:\Users\ob1to\source\repos\Hotelv2\Hotelv2\Image\Logo.png"
+                                   Height="40" 
+                                   Width="40"
+                                   Margin="0 0 0 0"/>
+                            <Image Source="C:\Users\ob1to\source\repos\Hotelv2\Hotelv2\Image\Crystal Cove.png"
+                                   Height="34" 
+                                   Width="59"
+                                   Margin="15 0 0 0"/>
+                        </StackPanel>
+
+                        <!-- Меню -->
+                        <ToggleButton x:Name="btnMenu" 
+                                      HorizontalAlignment="Right" 
+                                      BorderThickness="0" 
+                                      Background="Transparent" 
+                                      VerticalAlignment="Center" 
+                                      Style="{StaticResource MenuIconStyle}"
+                                      Margin="0 30 36 0">
+                            <ToggleButton.Triggers>
+                                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                    <BeginStoryboard>
+                                        <Storyboard x:Name="HideStackPanel">
+                                            <DoubleAnimation 
+                                                Storyboard.TargetName="gridMenu" 
+                                                Storyboard.TargetProperty="Width" 
+                                                BeginTime="0:0:0" 
+                                                From="250" 
+                                                To="100" 
+                                                Duration="0:0:0.3">
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                    <BeginStoryboard>
+                                        <Storyboard x:Name="ShowStackPanel">
+                                            <DoubleAnimation 
+                                                Storyboard.TargetName="gridMenu" 
+                                                Storyboard.TargetProperty="Width" 
+                                                BeginTime="0:0:0" 
+                                                From="100" 
+                                                To="250" 
+                                                Duration="0:0:0.3">
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ToggleButton.Triggers>
+                        </ToggleButton>
+
+                        <!-- Кнопки Клиенты | Комнаты | Бронирование -->
+                        <StackPanel Grid.Row="3">
+
+                            <RadioButton x:Name="rdClient" 
+                                         Content="Клиенты" 
+                                         Style="{DynamicResource MenuRadioButtonStyle}" 
+                                         Tag="{DynamicResource client}"
+                                         Click="rdClient_Click"
+                                         Margin="0 0 12 12"/>
+
+                            <RadioButton x:Name="rdRoom" 
+                                         Content="Комнаты" 
+                                         Style="{DynamicResource MenuRadioButtonStyle}" 
+                                         Tag="{DynamicResource room}"
+                                         Click="rdRoom_Click"
+                                         Margin="0 0 12 0"/>
+
+                            <RadioButton x:Name="rdBooking" 
+                                         Content="Бронирование" 
+                                         Style="{DynamicResource MenuRadioButtonStyle}" 
+                                         Tag="{DynamicResource booking}" 
+                                         Margin="0 12 12 0"
+                                         Click="rdBooking_Click"/>
+
+                        </StackPanel>
+
+                        <!-- Кнопка Выход -->
+                        <StackPanel Grid.Row="6" 
+                                    VerticalAlignment="Bottom"
+                                    Margin="5 0 7 22">
+
+                            <RadioButton Click="rdExit_Click"
+                                         Content="Выйти" 
+                                         Style="{DynamicResource MenuRadioButtonExitStyle}" 
+                                         Tag="{DynamicResource exit}"/>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+
+                <!-- Расположения столбцов сетки -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Кнопка Закрыть | Расширеть/Свернуть | Свернуть -->
+                    <StackPanel Grid.Row="0" 
+                                Grid.Column="4" 
+                                HorizontalAlignment="Right" 
+                                VerticalAlignment="Top" 
+                                Margin="0 15 20 0" 
+                                Height="20" 
+                                Orientation="Horizontal" 
+                                FlowDirection="RightToLeft">
+
+                        <Button x:Name="btnClose" 
+                                Style="{StaticResource IconButtonsStyle}" 
+                                Content="{DynamicResource close}" 
+                                Tag="IsCloseButton"
+                                Click="btnClose_Click"
+                                ToolTip="Закрыть"/>
+
+                        <Button x:Name="btnRestore" 
+                                Margin="15,0"
+                                Click="btnRestore_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" 
+                                       BasedOn="{StaticResource RestoreIcon}">
+                                    <Setter Property="Content" 
+                                            Value="{DynamicResource maximize}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" 
+                                                     Value="Maximized">
+                                            <Setter Property="Content" 
+                                                    Value="{DynamicResource restore}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="btnMinimize" 
+                                Style="{DynamicResource IconButtonsStyle}" 
+                                Content="{DynamicResource minimize}"
+                                Click="btnMinimize_Click"
+                                ToolTip="Свернуть"/>
+
+                    </StackPanel>
+
+                    <!-- Правая колонка таблицы -->
+                    <Border Grid.Row="1" 
+                            Margin="30 17 30 68">
+
+                        <Frame x:Name="PagesNavigation" 
+                               NavigationUIVisibility="Hidden">
+                        </Frame>
+
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

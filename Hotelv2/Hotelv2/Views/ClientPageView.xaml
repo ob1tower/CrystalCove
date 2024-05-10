@@ -1,0 +1,190 @@
+﻿<Page x:Class="Hotelv2.Views.ClientPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Hotelv2.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="585" 
+      d:DesignWidth="920"
+      Title="ClientPageView">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="39"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="438"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <TextBlock Text="Клиенты"
+                           HorizontalAlignment="Left"
+                           Foreground="#021A2D"
+                           FontSize="32"
+                           FontFamily="Montserrat"
+                           FontWeight="SemiBold"/>
+
+                <Button Style="{StaticResource addButton}"
+                        HorizontalAlignment="Right"
+                        Click="AddClient_Click">
+                    
+
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="M15 21.25V8.75M8.75 15H21.25" 
+                              Stroke="white" 
+                              StrokeThickness="2" 
+                              Width="30" 
+                              Height="30" 
+                              Margin="0 0 8 0"/>
+                        <TextBlock Text="Добавить"
+                                   FontFamily="Montserrat"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontWeight="SemiBold"/>
+                    </StackPanel>
+
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Line X1="0" 
+                      Y1="0"
+                      X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"  
+                      Y2="0"
+                      VerticalAlignment="Bottom"
+                      Stroke="#CDE7EA" 
+                      StrokeThickness="1"/>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <TextBox x:Name="ClientCount"
+                         HorizontalAlignment="Left"
+                         Foreground="#021A2D"
+                         FontSize="15"
+                         FontFamily="Montserrat"
+                         VerticalAlignment="Bottom"
+                         Margin="0 10 0 5"
+                         BorderBrush="White"
+                         IsReadOnly="True"
+                         BorderThickness="0" 
+                         FontWeight="SemiBold"/>
+
+                <TextBlock Text="клиента"
+                           HorizontalAlignment="Left"
+                           Foreground="#459DA6"
+                           VerticalAlignment="Bottom"
+                           FontSize="15"
+                           Margin="20 0 0 5"
+                           FontFamily="Montserrat"
+                           FontWeight="SemiBold"/>
+
+                <Grid Height="28"
+                      Width="209"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom">
+                    <TextBlock Margin="15 0" 
+                               VerticalAlignment="Center" 
+                               Foreground="#7FB9BF"
+                               FontFamily="Montserrat"
+                               FontWeight="Medium"
+                               FontSize="10"
+                               IsHitTestVisible="False"
+                               Panel.ZIndex="1" 
+                               Text="Поиск"
+                               Visibility="{Binding ElementName=Filter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+
+                    <TextBox Name="Filter" 
+                             Style="{DynamicResource filterTextBox}"
+                             FontFamily="Montserrat"
+                             TextChanged="Filter_TextChanged" 
+                             Margin="0 0 0 0"   
+                             BorderThickness="1" 
+                             BorderBrush="#E0E0E0"/>
+
+                    <Path Data="M14 14L10 10M2 6.66667C2 7.2795 2.12071 7.88634 2.35523 8.45252C2.58975 9.01871 2.93349 9.53316 3.36683 9.9665C3.80018 10.3998 4.31462 10.7436 4.88081 10.9781C5.447 11.2126 6.05383 11.3333 6.66667 11.3333C7.2795 11.3333 7.88634 11.2126 8.45252 10.9781C9.01871 10.7436 9.53316 10.3998 9.9665 9.9665C10.3998 9.53316 10.7436 9.01871 10.9781 8.45252C11.2126 7.88634 11.3333 7.2795 11.3333 6.66667C11.3333 6.05383 11.2126 5.447 10.9781 4.88081C10.7436 4.31462 10.3998 3.80018 9.9665 3.36683C9.53316 2.93349 9.01871 2.58975 8.45252 2.35523C7.88634 2.12071 7.2795 2 6.66667 2C6.05383 2 5.447 2.12071 4.88081 2.35523C4.31462 2.58975 3.80018 2.93349 3.36683 3.36683C2.93349 3.80018 2.58975 4.31462 2.35523 4.88081C2.12071 5.447 2 6.05383 2 6.66667Z" 
+                          Stroke="#459DA6"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Stretch" 
+                          Width="16" 
+                          Height="16" 
+                          Margin="0 0 15 0"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <DataGrid x:Name="ClientDataGrid"
+                          RowStyle="{DynamicResource DataGridRowStyle}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}" 
+                          CellStyle="{DynamicResource DataGridCellStyle}"
+                          Style="{DynamicResource DataGridStyle}"
+                          AutoGenerateColumns="False"
+                          Margin="0 10 0 0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Имя"
+                                            Width="*"
+                                            MinWidth="25"
+                                            IsReadOnly="True"
+                                            Binding="{Binding FirstName}"/>
+                        <DataGridTextColumn Header="Фамилия"
+                                            Width="*"
+                                            MinWidth="66"
+                                            IsReadOnly="True"
+                                            Binding="{Binding LastName}"/>
+                        <DataGridTextColumn Header="Отчество"
+                                            IsReadOnly="True"
+                                            MinWidth="65"
+                                            Width="*"
+                                            Binding="{Binding Patronymic}"/>
+                        <DataGridTextColumn Header="Паспорт"
+                                            IsReadOnly="True"
+                                            MinWidth="60"
+                                            Width="*"
+                                            Binding="{Binding PassportNumber}"/>
+                        <DataGridTextColumn Header="Номер телефона"
+                                            IsReadOnly="True"
+                                            MinWidth="131"
+                                            Width="*"
+                                            Binding="{Binding PhoneNumber}"/>
+                        <DataGridTextColumn Header="Электронная почта"
+                                            IsReadOnly="True"
+                                            MinWidth="145"
+                                            Width="*"
+                                            Binding="{Binding Email}"/>
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Right" 
+                                                Margin="0 0 30 0">
+                                        <Button x:Name="EditClient" 
+                                                Style="{DynamicResource IconEditStyle}"
+                                                Click="UpdateClient_Click"/>
+
+                                        <Button x:Name="DeleteClient"
+                                                Style="{DynamicResource IconDeleteStyle}"
+                                                Margin="15 0 0 0"
+                                                Click="DeleteClient_Click"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Row="4"
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Bottom">
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
